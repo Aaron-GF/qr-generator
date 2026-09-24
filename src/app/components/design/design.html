@@ -1,0 +1,58 @@
+<!-- Personalización Visual -->
+<div class="bg-background rounded-2xl border border-secondary/20 shadow-sm p-6">
+  <h2 class="font-semibold text-lg mb-6 flex items-center gap-2">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" /></svg>
+    Diseño del QR
+  </h2>
+  
+  <div class="space-y-6">
+    <!-- Colores -->
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-medium mb-2">Color Tinta</label>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg bg-text shadow-inner cursor-pointer border border-secondary/20"></div>
+          <input type="text" value="#05241e" class="flex-1 px-3 py-2 rounded-lg bg-secondary/5 border border-secondary/20 text-sm font-mono focus:border-primary outline-none">
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-2">Color Fondo</label>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg bg-background shadow-inner cursor-pointer border border-secondary/30"></div>
+          <input type="text" value="#ffffff" class="flex-1 px-3 py-2 rounded-lg bg-secondary/5 border border-secondary/20 text-sm font-mono focus:border-primary outline-none">
+        </div>
+      </div>
+    </div>
+
+    <!-- Forma -->
+    <div>
+      <label class="block text-sm font-medium mb-3">Forma de los píxeles</label>
+      <div class="flex gap-3">
+        <button class="flex-1 py-2 px-3 border-2 border-primary rounded-xl font-medium text-sm text-primary bg-primary/5">Cuadrados</button>
+        <button class="flex-1 py-2 px-3 border-2 border-transparent hover:border-secondary/30 rounded-xl font-medium text-sm text-text/70 bg-secondary/5 transition-colors">Redondeados</button>
+        <button class="flex-1 py-2 px-3 border-2 border-transparent hover:border-secondary/30 rounded-xl font-medium text-sm text-text/70 bg-secondary/5 transition-colors">Puntos</button>
+      </div>
+    </div>
+
+    <!-- Logo -->
+    <div>
+      <label class="block text-sm font-medium mb-3">Logo Central</label>
+      <div class="border-2 border-dashed border-secondary/30 rounded-xl p-6 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-secondary/5 transition-colors group">
+        <div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-secondary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
+        </div>
+        <p class="text-sm font-medium">Sube una imagen</p>
+        <p class="text-xs text-text/50 mt-1">PNG, JPG hasta 2MB</p>
+      </div>
+    </div>
+
+    <!-- Sliders -->
+    <div>
+      <div class="flex justify-between mb-1">
+        <label class="text-sm font-medium">Margen (Padding)</label>
+        <span class="text-xs text-text/50 font-mono">2 blocks</span>
+      </div>
+      <input type="range" class="w-full h-2 bg-secondary/20 rounded-lg appearance-none cursor-pointer accent-primary" min="0" max="4" value="2">
+    </div>
+  </div>
+</div>
