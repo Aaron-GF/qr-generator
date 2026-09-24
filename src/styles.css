@@ -33,4 +33,14 @@
         cursor: pointer;
     }
 }
+
+@utility qr-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  transition-property: all;
+}
     
