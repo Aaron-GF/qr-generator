@@ -27,5 +27,9 @@
         color: var(--color-text);
         background-color: var(--color-background);
     }
+
+    button, a {
+        cursor: pointer;
+    }
 }
     
