@@ -1,5 +1,9 @@
 <div class="min-h-screen p-4 md:p-8 font-sans transition-colors duration-300">
-  <app-header class="contents"></app-header>
+  <app-header
+    [isDarkMode]="isDarkMode()"
+    (themeToggle)="toggleTheme()"
+    class="contents"
+  ></app-header>
   <main class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
     <app-history class="contents"></app-history>
     <div class="lg:col-span-5 space-y-6 order-1 lg:order-2">

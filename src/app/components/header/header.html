@@ -1,21 +1,76 @@
 <header class="flex justify-between items-center max-w-7xl mx-auto mb-8 lg:mb-12">
-    <div class="flex items-center gap-3 group cursor-pointer">
-      <div class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/30 transform group-hover:scale-105 transition-all">
-        <!-- Icono pulpo simulado -->
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-background" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 2C9.23858 2 7 4.23858 7 7V9C7 11.7614 9.23858 14 12 14C14.7614 14 17 11.7614 17 9V7C17 4.23858 14.7614 2 12 2Z" />
-          <path d="M4.5 13.5C3.11929 13.5 2 14.6193 2 16C2 17.3807 3.11929 18.5 4.5 18.5C5.88071 18.5 7 17.3807 7 16" />
-          <path d="M19.5 13.5C18.1193 13.5 17 14.6193 17 16C17 17.3807 18.1193 18.5 19.5 18.5C20.8807 18.5 22 17.3807 22 16" />
-          <path d="M9.5 14C8.11929 14 7 15.1193 7 16.5C7 17.8807 8.11929 19 9.5 19" />
-          <path d="M14.5 14C15.8807 14 17 15.1193 17 16.5C17 17.8807 15.8807 19 14.5 19" />
-        </svg>
-      </div>
-      <h1 class="text-3xl font-bold tracking-tight text-text">QRakin<span class="text-primary">.</span></h1>
-    </div>
-    
-    <button class="p-2.5 rounded-full bg-secondary/10 hover:bg-secondary/20 text-secondary transition-colors" title="Cambiar tema">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+  <div class="flex items-center gap-3 group cursor-pointer">
+    <div
+      class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/30 transform group-hover:scale-105 transition-all"
+    >
+      <!-- Icono pulpo simulado -->
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-7 h-7 text-background"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path
+          d="M12 2C9.23858 2 7 4.23858 7 7V9C7 11.7614 9.23858 14 12 14C14.7614 14 17 11.7614 17 9V7C17 4.23858 14.7614 2 12 2Z"
+        />
+        <path
+          d="M4.5 13.5C3.11929 13.5 2 14.6193 2 16C2 17.3807 3.11929 18.5 4.5 18.5C5.88071 18.5 7 17.3807 7 16"
+        />
+        <path
+          d="M19.5 13.5C18.1193 13.5 17 14.6193 17 16C17 17.3807 18.1193 18.5 19.5 18.5C20.8807 18.5 22 17.3807 22 16"
+        />
+        <path d="M9.5 14C8.11929 14 7 15.1193 7 16.5C7 17.8807 8.11929 19 9.5 19" />
+        <path d="M14.5 14C15.8807 14 17 15.1193 17 16.5C17 17.8807 15.8807 19 14.5 19" />
       </svg>
-    </button>
-  </header>
+    </div>
+    <h1 class="text-3xl font-bold tracking-tight text-text">
+      QRakin<span class="text-primary">.</span>
+    </h1>
+  </div>
+
+  <button
+    (click)="toggleTheme()"
+    class="p-2.5 rounded-full bg-secondary/10 hover:bg-secondary/20 text-secondary transition-colors"
+    [title]="isDarkMode() ? 'Modo claro' : 'Modo oscuro'"
+  >
+    @if (isDarkMode()) {
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-6 h-6"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <circle cx="12" cy="12" r="4" />
+        <path d="M12 2v2" />
+        <path d="M12 20v2" />
+        <path d="m4.93 4.93 1.41 1.41" />
+        <path d="m17.66 17.66 1.41 1.41" />
+        <path d="M2 12h2" />
+        <path d="M20 12h2" />
+        <path d="m6.34 17.66-1.41 1.41" />
+        <path d="m19.07 4.93-1.41 1.41" />
+      </svg>
+    } @else {
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-6 h-6"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+      </svg>
+    }
+  </button>
+</header>
