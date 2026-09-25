@@ -2,76 +2,96 @@
 <div class="bg-background rounded-2xl border border-secondary/20 shadow-sm p-6">
   <h2 class="font-semibold text-lg mb-4">¿Qué quieres generar?</h2>
   <div class="grid grid-cols-3 sm:grid-cols-5 gap-2 mb-6">
-    <button 
+    <button
       (click)="setQrType('url')"
-      [class]="'qr-btn ' + (qrType() === 'url' ? 'bg-primary text-background font-medium shadow-md active:scale-95' : 'bg-secondary/5 hover:bg-secondary/15 text-text')"
+      [class]="
+        'qr-btn ' +
+        (qrType() === 'url'
+          ? 'bg-primary text-background font-medium shadow-md active:scale-95'
+          : 'bg-secondary/5 hover:bg-secondary/15 text-text')
+      "
     >
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mb-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
-        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
-      </svg>
+      <!-- prettier-ignore -->
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5 mb-1" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
       <span class="text-xs">URL</span>
     </button>
-    <button 
+    <button
       (click)="setQrType('text')"
-      [class]="'qr-btn ' + (qrType() === 'text' ? 'bg-primary text-background font-medium shadow-md active:scale-95' : 'bg-secondary/5 hover:bg-secondary/15 text-text')"
+      [class]="
+        'qr-btn ' +
+        (qrType() === 'text'
+          ? 'bg-primary text-background font-medium shadow-md active:scale-95'
+          : 'bg-secondary/5 hover:bg-secondary/15 text-text')
+      "
     >
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mb-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-        <polyline points="14 2 14 8 20 8"/>
-        <line x1="16" y1="13" x2="8" y2="13"/>
-        <line x1="16" y1="17" x2="8" y2="17"/>
-        <line x1="10" y1="9" x2="8" y2="9"/>
-      </svg>
+      <!-- prettier-ignore -->
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5 mb-1" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6m-4 5H8m8 4H8m2-8H8"/></svg>
       <span class="text-xs">Texto</span>
     </button>
-    <button 
+    <button
       (click)="setQrType('wifi')"
-      [class]="'qr-btn ' + (qrType() === 'wifi' ? 'bg-primary text-background font-medium shadow-md active:scale-95' : 'bg-secondary/5 hover:bg-secondary/15 text-text')"
+      [class]="
+        'qr-btn ' +
+        (qrType() === 'wifi'
+          ? 'bg-primary text-background font-medium shadow-md active:scale-95'
+          : 'bg-secondary/5 hover:bg-secondary/15 text-text')
+      "
     >
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mb-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M5 12.55a11 11 0 0 1 14.08 0"/>
-        <path d="M1.42 9a16 16 0 0 1 21.16 0"/>
-        <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
-        <line x1="12" y1="20" x2="12.01" y2="20"/>
-      </svg>
+      <!-- prettier-ignore -->
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5 mb-1" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg>
       <span class="text-xs">Wi-Fi</span>
     </button>
-    <button 
+    <button
       (click)="setQrType('contact')"
-      [class]="'qr-btn ' + (qrType() === 'contact' ? 'bg-primary text-background font-medium shadow-md active:scale-95' : 'bg-secondary/5 hover:bg-secondary/15 text-text')"
+      [class]="
+        'qr-btn ' +
+        (qrType() === 'contact'
+          ? 'bg-primary text-background font-medium shadow-md active:scale-95'
+          : 'bg-secondary/5 hover:bg-secondary/15 text-text')
+      "
     >
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mb-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
-        <circle cx="12" cy="7" r="4"/>
-      </svg>
+      <!-- prettier-ignore -->
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5 mb-1" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
       <span class="text-xs">Contacto</span>
     </button>
-    <button 
+    <button
       (click)="setQrType('email')"
-      [class]="'qr-btn ' + (qrType() === 'email' ? 'bg-primary text-background font-medium shadow-md active:scale-95' : 'bg-secondary/5 hover:bg-secondary/15 text-text')"
+      [class]="
+        'qr-btn ' +
+        (qrType() === 'email'
+          ? 'bg-primary text-background font-medium shadow-md active:scale-95'
+          : 'bg-secondary/5 hover:bg-secondary/15 text-text')
+      "
     >
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mb-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect width="20" height="16" x="2" y="4" rx="2"/>
-        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-      </svg>
+      <!-- prettier-ignore -->
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5 mb-1" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
       <span class="text-xs">Email</span>
     </button>
   </div>
 
-  <!-- Input Areas -->
+  <!-- Areas de entrada de datos -->
   <div class="space-y-4">
     @if (qrType() === 'url') {
       <div>
         <label class="block text-sm font-medium mb-1.5">Introduce el enlace</label>
-        <input type="url" [(ngModel)]="urlData" (ngModelChange)="generateQrContent()" placeholder="https://tu-sitio-web.com" class="w-full px-4 py-3 rounded-xl bg-background border border-secondary/30 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-text/40">
+        <input
+          type="url"
+          [(ngModel)]="urlData"
+          (ngModelChange)="generateQrContent()"
+          placeholder="https://tu-sitio-web.com"
+        />
       </div>
     }
 
     @if (qrType() === 'text') {
       <div>
         <label class="block text-sm font-medium mb-1.5">Introduce el texto</label>
-        <textarea [(ngModel)]="textData" (ngModelChange)="generateQrContent()" rows="4" placeholder="Escribe aquí tu mensaje..." class="w-full px-4 py-3 rounded-xl bg-background border border-secondary/30 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-text/40 resize-none"></textarea>
+        <textarea
+          [(ngModel)]="textData"
+          (ngModelChange)="generateQrContent()"
+          rows="4"
+          placeholder="Escribe aquí tu mensaje..."
+        ></textarea>
       </div>
     }
 
@@ -79,23 +99,41 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div class="sm:col-span-2">
           <label class="block text-sm font-medium mb-1.5">Nombre de la red (SSID)</label>
-          <input type="text" [(ngModel)]="wifiData.ssid" (ngModelChange)="generateQrContent()" placeholder="Mi Red WiFi" class="w-full px-4 py-3 rounded-xl bg-background border border-secondary/30 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-text/40">
+          <input
+            type="text"
+            [(ngModel)]="wifiData.ssid"
+            (ngModelChange)="generateQrContent()"
+            placeholder="Mi Red WiFi"
+          />
         </div>
         <div>
           <label class="block text-sm font-medium mb-1.5">Contraseña</label>
-          <input type="password" [(ngModel)]="wifiData.password" (ngModelChange)="generateQrContent()" placeholder="••••••••" class="w-full px-4 py-3 rounded-xl bg-background border border-secondary/30 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-text/40">
+          <input
+            type="password"
+            [(ngModel)]="wifiData.password"
+            (ngModelChange)="generateQrContent()"
+            placeholder="••••••••"
+          />
         </div>
         <div>
           <label class="block text-sm font-medium mb-1.5">Seguridad</label>
-          <select [(ngModel)]="wifiData.encryption" (ngModelChange)="generateQrContent()" class="w-full px-4 py-3 rounded-xl bg-background border border-secondary/30 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all">
+          <select [(ngModel)]="wifiData.encryption" (ngModelChange)="generateQrContent()">
             <option value="WPA">WPA/WPA2/WPA3</option>
             <option value="WEP">WEP</option>
             <option value="nopass">Sin contraseña</option>
           </select>
         </div>
         <div class="sm:col-span-2 flex items-center gap-2">
-          <input type="checkbox" id="hiddenWifi" [(ngModel)]="wifiData.hidden" (ngModelChange)="generateQrContent()" class="w-4 h-4 text-primary bg-background border border-secondary/30 rounded focus:ring-primary focus:ring-2 cursor-pointer">
-          <label for="hiddenWifi" class="text-sm font-medium cursor-pointer select-none">Es una red oculta</label>
+          <input
+            type="checkbox"
+            id="hiddenWifi"
+            [(ngModel)]="wifiData.hidden"
+            (ngModelChange)="generateQrContent()"
+            class="w-4 h-4 text-primary bg-background border border-secondary/30 rounded cursor-pointer"
+          />
+          <label for="hiddenWifi" class="text-sm font-medium cursor-pointer select-none"
+            >Es una red oculta</label
+          >
         </div>
       </div>
     }
@@ -104,23 +142,48 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label class="block text-sm font-medium mb-1.5">Nombre</label>
-          <input type="text" [(ngModel)]="contactData.firstName" (ngModelChange)="generateQrContent()" placeholder="Juan" class="w-full px-4 py-3 rounded-xl bg-background border border-secondary/30 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-text/40">
+          <input
+            type="text"
+            [(ngModel)]="contactData.firstName"
+            (ngModelChange)="generateQrContent()"
+            placeholder="Juan"
+          />
         </div>
         <div>
           <label class="block text-sm font-medium mb-1.5">Apellidos</label>
-          <input type="text" [(ngModel)]="contactData.lastName" (ngModelChange)="generateQrContent()" placeholder="Pérez" class="w-full px-4 py-3 rounded-xl bg-background border border-secondary/30 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-text/40">
+          <input
+            type="text"
+            [(ngModel)]="contactData.lastName"
+            (ngModelChange)="generateQrContent()"
+            placeholder="Pérez"
+          />
         </div>
         <div>
           <label class="block text-sm font-medium mb-1.5">Teléfono</label>
-          <input type="tel" [(ngModel)]="contactData.phone" (ngModelChange)="generateQrContent()" placeholder="+34 600 000 000" class="w-full px-4 py-3 rounded-xl bg-background border border-secondary/30 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-text/40">
+          <input
+            type="tel"
+            [(ngModel)]="contactData.phone"
+            (ngModelChange)="generateQrContent()"
+            placeholder="+34 600 000 000"
+          />
         </div>
         <div>
           <label class="block text-sm font-medium mb-1.5">Email</label>
-          <input type="email" [(ngModel)]="contactData.email" (ngModelChange)="generateQrContent()" placeholder="juan@ejemplo.com" class="w-full px-4 py-3 rounded-xl bg-background border border-secondary/30 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-text/40">
+          <input
+            type="email"
+            [(ngModel)]="contactData.email"
+            (ngModelChange)="generateQrContent()"
+            placeholder="juan@ejemplo.com"
+          />
         </div>
         <div class="sm:col-span-2">
           <label class="block text-sm font-medium mb-1.5">Empresa / Organización</label>
-          <input type="text" [(ngModel)]="contactData.company" (ngModelChange)="generateQrContent()" placeholder="Mi Empresa S.L." class="w-full px-4 py-3 rounded-xl bg-background border border-secondary/30 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-text/40">
+          <input
+            type="text"
+            [(ngModel)]="contactData.company"
+            (ngModelChange)="generateQrContent()"
+            placeholder="Mi Empresa S.L."
+          />
         </div>
       </div>
     }
@@ -129,15 +192,30 @@
       <div class="space-y-4">
         <div>
           <label class="block text-sm font-medium mb-1.5">Destinatario</label>
-          <input type="email" [(ngModel)]="emailData.address" (ngModelChange)="generateQrContent()" placeholder="contacto@ejemplo.com" class="w-full px-4 py-3 rounded-xl bg-background border border-secondary/30 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-text/40">
+          <input
+            type="email"
+            [(ngModel)]="emailData.address"
+            (ngModelChange)="generateQrContent()"
+            placeholder="contacto@ejemplo.com"
+          />
         </div>
         <div>
           <label class="block text-sm font-medium mb-1.5">Asunto</label>
-          <input type="text" [(ngModel)]="emailData.subject" (ngModelChange)="generateQrContent()" placeholder="Motivo del mensaje" class="w-full px-4 py-3 rounded-xl bg-background border border-secondary/30 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-text/40">
+          <input
+            type="text"
+            [(ngModel)]="emailData.subject"
+            (ngModelChange)="generateQrContent()"
+            placeholder="Motivo del mensaje"
+          />
         </div>
         <div>
           <label class="block text-sm font-medium mb-1.5">Cuerpo del mensaje</label>
-          <textarea [(ngModel)]="emailData.body" (ngModelChange)="generateQrContent()" rows="4" placeholder="Escribe tu mensaje aquí..." class="w-full px-4 py-3 rounded-xl bg-background border border-secondary/30 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-text/40 resize-none"></textarea>
+          <textarea
+            [(ngModel)]="emailData.body"
+            (ngModelChange)="generateQrContent()"
+            rows="4"
+            placeholder="Escribe tu mensaje aquí..."
+          ></textarea>
         </div>
       </div>
     }
