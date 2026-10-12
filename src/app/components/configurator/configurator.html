@@ -3,10 +3,11 @@
   <h2 class="font-semibold text-lg mb-4">¿Qué quieres generar?</h2>
   <div class="grid grid-cols-3 sm:grid-cols-5 gap-2 mb-6">
     <button
+      type="button"
       (click)="setQrType('url')"
       [class]="
         'qr-btn ' +
-        (qrType() === 'url'
+        (config.type === 'url'
           ? 'bg-primary text-background font-medium shadow-md active:scale-95'
           : 'bg-secondary/5 hover:bg-secondary/15 text-text')
       "
@@ -16,10 +17,11 @@
       <span class="text-xs">URL</span>
     </button>
     <button
+      type="button"
       (click)="setQrType('text')"
       [class]="
         'qr-btn ' +
-        (qrType() === 'text'
+        (config.type === 'text'
           ? 'bg-primary text-background font-medium shadow-md active:scale-95'
           : 'bg-secondary/5 hover:bg-secondary/15 text-text')
       "
@@ -29,10 +31,11 @@
       <span class="text-xs">Texto</span>
     </button>
     <button
+      type="button"
       (click)="setQrType('wifi')"
       [class]="
         'qr-btn ' +
-        (qrType() === 'wifi'
+        (config.type === 'wifi'
           ? 'bg-primary text-background font-medium shadow-md active:scale-95'
           : 'bg-secondary/5 hover:bg-secondary/15 text-text')
       "
@@ -42,10 +45,11 @@
       <span class="text-xs">Wi-Fi</span>
     </button>
     <button
+      type="button"
       (click)="setQrType('contact')"
       [class]="
         'qr-btn ' +
-        (qrType() === 'contact'
+        (config.type === 'contact'
           ? 'bg-primary text-background font-medium shadow-md active:scale-95'
           : 'bg-secondary/5 hover:bg-secondary/15 text-text')
       "
@@ -55,10 +59,11 @@
       <span class="text-xs">Contacto</span>
     </button>
     <button
+      type="button"
       (click)="setQrType('email')"
       [class]="
         'qr-btn ' +
-        (qrType() === 'email'
+        (config.type === 'email'
           ? 'bg-primary text-background font-medium shadow-md active:scale-95'
           : 'bg-secondary/5 hover:bg-secondary/15 text-text')
       "
@@ -71,38 +76,38 @@
 
   <!-- Areas de entrada de datos -->
   <div class="space-y-4">
-    @if (qrType() === 'url') {
+    @if (config.type === 'url') {
       <div>
         <label class="block text-sm font-medium mb-1.5">Introduce el enlace</label>
         <input
           type="url"
-          [(ngModel)]="urlData"
-          (ngModelChange)="generateQrContent()"
+          [ngModel]="config.urlData"
+          (ngModelChange)="updateUrl($event)"
           placeholder="https://tu-sitio-web.com"
         />
       </div>
     }
 
-    @if (qrType() === 'text') {
+    @if (config.type === 'text') {
       <div>
         <label class="block text-sm font-medium mb-1.5">Introduce el texto</label>
         <textarea
-          [(ngModel)]="textData"
-          (ngModelChange)="generateQrContent()"
+          [ngModel]="config.textData"
+          (ngModelChange)="updateText($event)"
           rows="4"
           placeholder="Escribe aquí tu mensaje..."
         ></textarea>
       </div>
     }
 
-    @if (qrType() === 'wifi') {
+    @if (config.type === 'wifi') {
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div class="sm:col-span-2">
           <label class="block text-sm font-medium mb-1.5">Nombre de la red (SSID)</label>
           <input
             type="text"
-            [(ngModel)]="wifiData.ssid"
-            (ngModelChange)="generateQrContent()"
+            [ngModel]="config.wifiData.ssid"
+            (ngModelChange)="updateWifi('ssid', $event)"
             placeholder="Mi Red WiFi"
           />
         </div>
@@ -110,14 +115,17 @@
           <label class="block text-sm font-medium mb-1.5">Contraseña</label>
           <input
             type="password"
-            [(ngModel)]="wifiData.password"
-            (ngModelChange)="generateQrContent()"
+            [ngModel]="config.wifiData.password"
+            (ngModelChange)="updateWifi('password', $event)"
             placeholder="••••••••"
           />
         </div>
         <div>
           <label class="block text-sm font-medium mb-1.5">Seguridad</label>
-          <select [(ngModel)]="wifiData.encryption" (ngModelChange)="generateQrContent()">
+          <select
+            [ngModel]="config.wifiData.encryption"
+            (ngModelChange)="updateWifi('encryption', $event)"
+          >
             <option value="WPA">WPA/WPA2/WPA3</option>
             <option value="WEP">WEP</option>
             <option value="nopass">Sin contraseña</option>
@@ -127,8 +135,8 @@
           <input
             type="checkbox"
             id="hiddenWifi"
-            [(ngModel)]="wifiData.hidden"
-            (ngModelChange)="generateQrContent()"
+            [ngModel]="config.wifiData.hidden"
+            (ngModelChange)="updateWifi('hidden', $event)"
             class="w-4 h-4 text-primary bg-background border border-secondary/30 rounded cursor-pointer"
           />
           <label for="hiddenWifi" class="text-sm font-medium cursor-pointer select-none"
@@ -138,14 +146,14 @@
       </div>
     }
 
-    @if (qrType() === 'contact') {
+    @if (config.type === 'contact') {
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label class="block text-sm font-medium mb-1.5">Nombre</label>
           <input
             type="text"
-            [(ngModel)]="contactData.firstName"
-            (ngModelChange)="generateQrContent()"
+            [ngModel]="config.contactData.firstName"
+            (ngModelChange)="updateContact('firstName', $event)"
             placeholder="Juan"
           />
         </div>
@@ -153,8 +161,8 @@
           <label class="block text-sm font-medium mb-1.5">Apellidos</label>
           <input
             type="text"
-            [(ngModel)]="contactData.lastName"
-            (ngModelChange)="generateQrContent()"
+            [ngModel]="config.contactData.lastName"
+            (ngModelChange)="updateContact('lastName', $event)"
             placeholder="Pérez"
           />
         </div>
@@ -162,8 +170,8 @@
           <label class="block text-sm font-medium mb-1.5">Teléfono</label>
           <input
             type="tel"
-            [(ngModel)]="contactData.phone"
-            (ngModelChange)="generateQrContent()"
+            [ngModel]="config.contactData.phone"
+            (ngModelChange)="updateContact('phone', $event)"
             placeholder="+34 600 000 000"
           />
         </div>
@@ -171,8 +179,8 @@
           <label class="block text-sm font-medium mb-1.5">Email</label>
           <input
             type="email"
-            [(ngModel)]="contactData.email"
-            (ngModelChange)="generateQrContent()"
+            [ngModel]="config.contactData.email"
+            (ngModelChange)="updateContact('email', $event)"
             placeholder="juan@ejemplo.com"
           />
         </div>
@@ -180,22 +188,22 @@
           <label class="block text-sm font-medium mb-1.5">Empresa / Organización</label>
           <input
             type="text"
-            [(ngModel)]="contactData.company"
-            (ngModelChange)="generateQrContent()"
+            [ngModel]="config.contactData.company"
+            (ngModelChange)="updateContact('company', $event)"
             placeholder="Mi Empresa S.L."
           />
         </div>
       </div>
     }
 
-    @if (qrType() === 'email') {
+    @if (config.type === 'email') {
       <div class="space-y-4">
         <div>
           <label class="block text-sm font-medium mb-1.5">Destinatario</label>
           <input
             type="email"
-            [(ngModel)]="emailData.address"
-            (ngModelChange)="generateQrContent()"
+            [ngModel]="config.emailData.address"
+            (ngModelChange)="updateEmail('address', $event)"
             placeholder="contacto@ejemplo.com"
           />
         </div>
@@ -203,16 +211,16 @@
           <label class="block text-sm font-medium mb-1.5">Asunto</label>
           <input
             type="text"
-            [(ngModel)]="emailData.subject"
-            (ngModelChange)="generateQrContent()"
+            [ngModel]="config.emailData.subject"
+            (ngModelChange)="updateEmail('subject', $event)"
             placeholder="Motivo del mensaje"
           />
         </div>
         <div>
           <label class="block text-sm font-medium mb-1.5">Cuerpo del mensaje</label>
           <textarea
-            [(ngModel)]="emailData.body"
-            (ngModelChange)="generateQrContent()"
+            [ngModel]="config.emailData.body"
+            (ngModelChange)="updateEmail('body', $event)"
             rows="4"
             placeholder="Escribe tu mensaje aquí..."
           ></textarea>

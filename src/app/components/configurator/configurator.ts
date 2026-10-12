@@ -1,7 +1,6 @@
-import { Component, output, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
-export type QrType = 'url' | 'text' | 'wifi' | 'contact' | 'email';
+import { QrService, QrType, WifiData, ContactData, EmailData } from '../../services/qr.service';
 
 @Component({
   selector: 'app-configurator',
@@ -10,42 +9,36 @@ export type QrType = 'url' | 'text' | 'wifi' | 'contact' | 'email';
   templateUrl: './configurator.html',
 })
 export class Configurator {
-  qrType = signal<QrType>('url');
-  
-  // Modelos de datos
-  urlData = '';
-  textData = '';
-  wifiData = { ssid: '', password: '', encryption: 'WPA', hidden: false };
-  contactData = { firstName: '', lastName: '', phone: '', email: '', company: '' };
-  emailData = { address: '', subject: '', body: '' };
+  qrService = inject(QrService);
 
-  // Evento que emitirá el texto final estructurado para generar el QR
-  qrContentChange = output<string>();
-
-  setQrType(type: QrType) {
-    this.qrType.set(type);
-    this.generateQrContent();
+  get config() {
+    return this.qrService.config();
   }
 
-  generateQrContent() {
-    let content = '';
-    const type = this.qrType();
-    
-    if (type === 'url') {
-      content = this.urlData;
-    } else if (type === 'text') {
-      content = this.textData;
-    } else if (type === 'wifi') {
-      const { ssid, password, encryption, hidden } = this.wifiData;
-      content = `WIFI:T:${encryption};S:${ssid};P:${password};H:${hidden ? 'true' : 'false'};;`;
-    } else if (type === 'contact') {
-      const { firstName, lastName, phone, email, company } = this.contactData;
-      content = `BEGIN:VCARD\nVERSION:3.0\nN:${lastName};${firstName};;;\nFN:${firstName} ${lastName}\nORG:${company}\nTEL;TYPE=CELL:${phone}\nEMAIL:${email}\nEND:VCARD`;
-    } else if (type === 'email') {
-      const { address, subject, body } = this.emailData;
-      content = `MATMSG:TO:${address};SUB:${subject};BODY:${body};;`;
-    }
+  setQrType(type: QrType) {
+    this.qrService.setQrType(type);
+  }
 
-    this.qrContentChange.emit(content);
+  updateUrl(urlData: string) {
+    this.qrService.updateConfig({ urlData });
+  }
+
+  updateText(textData: string) {
+    this.qrService.updateConfig({ textData });
+  }
+
+  updateWifi<K extends keyof WifiData>(field: K, value: WifiData[K]) {
+    const wifiData = { ...this.qrService.config().wifiData, [field]: value };
+    this.qrService.updateConfig({ wifiData });
+  }
+
+  updateContact<K extends keyof ContactData>(field: K, value: ContactData[K]) {
+    const contactData = { ...this.qrService.config().contactData, [field]: value };
+    this.qrService.updateConfig({ contactData });
+  }
+
+  updateEmail<K extends keyof EmailData>(field: K, value: EmailData[K]) {
+    const emailData = { ...this.qrService.config().emailData, [field]: value };
+    this.qrService.updateConfig({ emailData });
   }
 }
