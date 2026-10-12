@@ -1,4 +1,4 @@
-<div class="min-h-screen p-4 md:p-8 font-sans transition-colors duration-300 relative">
+<div class="min-h-screen p-4 md:p-8 font-sans transition-colors duration-300">
   <app-header
     [isDarkMode]="isDarkMode()"
     (themeToggle)="toggleTheme()"
@@ -12,24 +12,4 @@
     </div>
     <app-preview class="contents"></app-preview>
   </main>
-
-  <!-- Notificación Toast flotante -->
-  @if (qrService.toast(); as toast) {
-    <div
-      class="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3 rounded-2xl shadow-xl border backdrop-blur-md transition-all duration-300 animate-bounce-subtle"
-      [class.bg-background]="true"
-      [class.border-success/40]="toast.type === 'success'"
-      [class.border-primary/40]="toast.type === 'info'"
-      [class.border-danger/40]="toast.type === 'error'"
-    >
-      @if (toast.type === 'success') {
-        <span class="w-2.5 h-2.5 rounded-full bg-success"></span>
-      } @else if (toast.type === 'error') {
-        <span class="w-2.5 h-2.5 rounded-full bg-danger"></span>
-      } @else {
-        <span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
-      }
-      <p class="text-sm font-medium text-text">{{ toast.message }}</p>
-    </div>
-  }
 </div>
