@@ -45,6 +45,6 @@ export class App {
       const saved = localStorage.getItem(THEME_KEY);
       if (saved) return saved === 'dark';
     } catch {}
-    return true; // Default dark
+    return true; // Modo oscuro por defecto
   }
 }
