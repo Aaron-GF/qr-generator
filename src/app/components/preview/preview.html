@@ -3,32 +3,52 @@
   <div
     class="bg-background rounded-2xl border border-secondary/20 shadow-xl shadow-primary/5 p-6 flex flex-col items-center relative overflow-hidden"
   >
-    <!-- Mascota Animada (Estado) -->
+    <!-- Brillo decorativo superior -->
     <div class="absolute -top-4 -right-4 w-24 h-24 bg-accent/10 rounded-full blur-2xl"></div>
-    
 
-    <h3 class="font-bold text-lg mb-6 w-full text-left">Vista Previa</h3>
+    <div class="flex items-center justify-between w-full mb-4">
+      <h3 class="font-bold text-lg">Vista Previa</h3>
+      <span
+        class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20"
+      >
+        <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+        En directo
+      </span>
+    </div>
 
-    <!-- Mock de QR -->
+    <!-- Contenedor del QR Canvas -->
     <div
-      class="w-64 h-64 bg-white rounded-xl shadow-sm border border-secondary/10 flex items-center justify-center p-4 relative mb-6 transition-all duration-300"
+      class="w-64 h-64 bg-white rounded-2xl shadow-sm border border-secondary/15 flex items-center justify-center p-4 relative mb-4 transition-all duration-300 group hover:shadow-md"
     >
-      <!-- Placeholder visual de QR (puedes reemplazar con el canvas/img real luego) -->
-      <div
-        class="w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPgo8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNMCAwaDQwdjQwaC00MHptMTAgMTBoMjB2MjBoLTIwem0tMTAgNjBoNDB2NDBoLTQwem0xMCAxMGgyMHYyMGgtMjB6bTYwLTYwaDQwdjQwaC00MHptMTAgMTBoMjB2MjBoLTIwIiBmaWxsPSIjMDUyNDFlIi8+Cjwvc3ZnPg==')] bg-cover opacity-20"
-      ></div>
+      <canvas
+        #qrCanvas
+        class="max-w-full max-h-full object-contain rounded-lg transition-transform duration-200 group-hover:scale-[1.02]"
+        style="width: 224px; height: 224px;"
+      ></canvas>
 
-      <div class="absolute inset-0 flex items-center justify-center">
-        <span class="bg-background/80 backdrop-blur px-4 py-2 rounded-full text-sm font-medium"
-          >QR Dinámico</span
-        >
-      </div>
+      @if (isRendering) {
+        <div class="absolute inset-0 bg-background/60 backdrop-blur-xs flex items-center justify-center rounded-2xl">
+          <div class="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      }
+    </div>
+
+    <!-- Resumen del contenido actual -->
+    <div class="w-full text-center mb-6">
+      <p class="text-sm font-semibold truncate max-w-[240px] mx-auto text-text">
+        {{ qrService.qrTitle() }}
+      </p>
+      <p class="text-xs text-text/50 truncate max-w-[240px] mx-auto mt-0.5 font-mono">
+        {{ qrService.qrContent() }}
+      </p>
     </div>
 
     <!-- Acciones de Exportación -->
     <div class="w-full space-y-3">
       <button
-        class="w-full py-3.5 px-4 bg-primary hover:bg-primary/90 text-background font-bold rounded-xl shadow-lg shadow-primary/30 transition-all flex justify-center items-center gap-2 transform active:scale-95"
+        type="button"
+        (click)="downloadPng()"
+        class="w-full py-3.5 px-4 bg-primary hover:bg-primary/90 text-background font-bold rounded-xl shadow-lg shadow-primary/30 transition-all flex justify-center items-center gap-2 transform active:scale-95 cursor-pointer"
       >
         <!-- prettier-ignore -->
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4m4-5 5 5 5-5m-5 5V3"/></svg>
@@ -37,24 +57,51 @@
 
       <div class="grid grid-cols-2 gap-3">
         <button
-          class="py-2.5 px-4 bg-secondary/10 hover:bg-secondary/20 text-text font-medium rounded-xl transition-colors flex justify-center items-center gap-2 text-sm"
+          type="button"
+          (click)="copyToClipboard()"
+          class="py-2.5 px-4 bg-secondary/10 hover:bg-secondary/20 text-text font-medium rounded-xl transition-colors flex justify-center items-center gap-2 text-sm cursor-pointer"
         >
           <!-- prettier-ignore -->
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-          Copiar
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+          {{ isCopied ? '¡Copiado!' : 'Copiar' }}
         </button>
         <button
-          class="py-2.5 px-4 bg-secondary/10 hover:bg-secondary/20 text-text font-medium rounded-xl transition-colors flex justify-center items-center gap-2 text-sm"
+          type="button"
+          (click)="downloadSvg()"
+          class="py-2.5 px-4 bg-secondary/10 hover:bg-secondary/20 text-text font-medium rounded-xl transition-colors flex justify-center items-center gap-2 text-sm cursor-pointer"
         >
+          <!-- prettier-ignore -->
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4" viewBox="0 0 24 24"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>
           Descargar SVG
         </button>
       </div>
+
+      <!-- Botón para guardar en el historial local -->
+      <button
+        type="button"
+        (click)="saveToHistory()"
+        class="w-full py-2.5 px-4 border border-secondary/25 hover:border-primary/50 hover:bg-secondary/5 text-text font-medium rounded-xl transition-colors flex justify-center items-center gap-2 text-sm cursor-pointer"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-4 h-4 text-warning"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
+          />
+        </svg>
+        Guardar en historial
+      </button>
     </div>
   </div>
 
-  <!-- Quick Share (API Web Share mock) -->
+  <!-- Quick Share (API Web Share) -->
   <button
-    class="w-full py-4 px-6 bg-background border border-secondary/20 hover:border-primary/50 rounded-2xl flex items-center justify-between group transition-colors shadow-sm"
+    type="button"
+    (click)="quickShare()"
+    class="w-full py-4 px-6 bg-background border border-secondary/20 hover:border-primary/50 rounded-2xl flex items-center justify-between group transition-all shadow-sm cursor-pointer hover:shadow-md"
   >
     <div class="flex items-center gap-3">
       <div
@@ -75,7 +122,7 @@
       </div>
       <div class="text-left">
         <p class="font-semibold text-sm">Compartir rápido</p>
-        <p class="text-xs text-text/60">Enviar enlace a otra app</p>
+        <p class="text-xs text-text/60">Enviar enlace a otra app o copiar</p>
       </div>
     </div>
     <svg
