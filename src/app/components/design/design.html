@@ -1,20 +1,41 @@
 <!-- Personalización Visual -->
 <div class="bg-background rounded-2xl border border-secondary/20 shadow-sm p-6">
-  <h2 class="font-semibold text-lg mb-6 flex items-center gap-2">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="w-5 h-5 text-primary"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-    >
-      <path
-        d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
-      />
-    </svg>
-    Diseño del QR
-  </h2>
+  <div class="flex items-center justify-between mb-6">
+    <h2 class="font-semibold text-lg flex items-center gap-2">
+      Diseño del QR
+    </h2>
+    <div class="flex items-center gap-1.5 text-xs text-text/60">
+      <span>Presets:</span>
+      <button
+        type="button"
+        (click)="applyPreset('#05241e', '#ffffff')"
+        class="w-5 h-5 rounded-full border border-secondary/30 shadow-xs cursor-pointer hover:scale-110 transition-transform"
+        style="background: linear-gradient(135deg, #05241e 50%, #ffffff 50%)"
+        title="Clásico"
+      ></button>
+      <button
+        type="button"
+        (click)="applyPreset('#113783', '#f0f5ff')"
+        class="w-5 h-5 rounded-full border border-secondary/30 shadow-xs cursor-pointer hover:scale-110 transition-transform"
+        style="background: linear-gradient(135deg, #113783 50%, #f0f5ff 50%)"
+        title="Océano"
+      ></button>
+      <button
+        type="button"
+        (click)="applyPreset('#053b2f', '#dbfaf4')"
+        class="w-5 h-5 rounded-full border border-secondary/30 shadow-xs cursor-pointer hover:scale-110 transition-transform"
+        style="background: linear-gradient(135deg, #053b2f 50%, #dbfaf4 50%)"
+        title="Menta"
+      ></button>
+      <button
+        type="button"
+        (click)="applyPreset('#3b0764', '#fdf4ff')"
+        class="w-5 h-5 rounded-full border border-secondary/30 shadow-xs cursor-pointer hover:scale-110 transition-transform"
+        style="background: linear-gradient(135deg, #3b0764 50%, #fdf4ff 50%)"
+        title="Púrpura"
+      ></button>
+    </div>
+  </div>
 
   <div class="space-y-6">
     <!-- Colores -->
@@ -22,26 +43,46 @@
       <div>
         <label class="block text-sm font-medium mb-2">Color Tinta</label>
         <div class="flex items-center gap-3">
-          <div
-            class="w-10 h-10 rounded-lg bg-text shadow-inner cursor-pointer border border-secondary/20"
-          ></div>
+          <label
+            class="relative w-10 h-10 rounded-lg shadow-inner cursor-pointer border border-secondary/20 flex items-center justify-center overflow-hidden shrink-0"
+            [style.background-color]="design.colorDark"
+          >
+            <input
+              type="color"
+              class="opacity-0 absolute inset-0 cursor-pointer w-full h-full"
+              [value]="design.colorDark"
+              (input)="setColorDark($any($event.target).value)"
+            />
+          </label>
           <input
             type="text"
-            value="#05241e"
+            [value]="design.colorDark"
+            (input)="setColorDark($any($event.target).value)"
             class="flex-1 px-3 py-2 rounded-lg bg-secondary/5 border border-secondary/20 text-sm font-mono focus:border-primary outline-none"
+            placeholder="#000000"
           />
         </div>
       </div>
       <div>
         <label class="block text-sm font-medium mb-2">Color Fondo</label>
         <div class="flex items-center gap-3">
-          <div
-            class="w-10 h-10 rounded-lg bg-background shadow-inner cursor-pointer border border-secondary/30"
-          ></div>
+          <label
+            class="relative w-10 h-10 rounded-lg shadow-inner cursor-pointer border border-secondary/30 flex items-center justify-center overflow-hidden shrink-0"
+            [style.background-color]="design.colorLight"
+          >
+            <input
+              type="color"
+              class="opacity-0 absolute inset-0 cursor-pointer w-full h-full"
+              [value]="design.colorLight"
+              (input)="setColorLight($any($event.target).value)"
+            />
+          </label>
           <input
             type="text"
-            value="#ffffff"
+            [value]="design.colorLight"
+            (input)="setColorLight($any($event.target).value)"
             class="flex-1 px-3 py-2 rounded-lg bg-secondary/5 border border-secondary/20 text-sm font-mono focus:border-primary outline-none"
+            placeholder="#ffffff"
           />
         </div>
       </div>
@@ -52,17 +93,38 @@
       <label class="block text-sm font-medium mb-3">Forma de los píxeles</label>
       <div class="flex gap-3">
         <button
-          class="flex-1 py-2 px-3 border-2 border-primary rounded-xl font-medium text-sm text-primary bg-primary/5"
+          type="button"
+          (click)="setPixelShape('squares')"
+          [class]="
+            'flex-1 py-2 px-3 border-2 rounded-xl font-medium text-sm transition-all ' +
+            (design.pixelShape === 'squares'
+              ? 'border-primary text-primary bg-primary/10 shadow-sm'
+              : 'border-transparent hover:border-secondary/30 text-text/70 bg-secondary/5')
+          "
         >
           Cuadrados
         </button>
         <button
-          class="flex-1 py-2 px-3 border-2 border-transparent hover:border-secondary/30 rounded-xl font-medium text-sm text-text/70 bg-secondary/5 transition-colors"
+          type="button"
+          (click)="setPixelShape('rounded')"
+          [class]="
+            'flex-1 py-2 px-3 border-2 rounded-xl font-medium text-sm transition-all ' +
+            (design.pixelShape === 'rounded'
+              ? 'border-primary text-primary bg-primary/10 shadow-sm'
+              : 'border-transparent hover:border-secondary/30 text-text/70 bg-secondary/5')
+          "
         >
           Redondeados
         </button>
         <button
-          class="flex-1 py-2 px-3 border-2 border-transparent hover:border-secondary/30 rounded-xl font-medium text-sm text-text/70 bg-secondary/5 transition-colors"
+          type="button"
+          (click)="setPixelShape('dots')"
+          [class]="
+            'flex-1 py-2 px-3 border-2 rounded-xl font-medium text-sm transition-all ' +
+            (design.pixelShape === 'dots'
+              ? 'border-primary text-primary bg-primary/10 shadow-sm'
+              : 'border-transparent hover:border-secondary/30 text-text/70 bg-secondary/5')
+          "
         >
           Puntos
         </button>
@@ -72,32 +134,70 @@
     <!-- Logo -->
     <div>
       <label class="block text-sm font-medium mb-3">Logo Central</label>
-      <div
-        class="border-2 border-dashed border-secondary/30 rounded-xl p-6 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-secondary/5 transition-colors group"
-      >
-        <div
-          class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform"
+      @if (!design.logo) {
+        <label
+          class="border-2 border-dashed border-secondary/30 rounded-xl p-6 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-secondary/5 hover:border-primary/50 transition-all group"
+          (dragover)="onDragOver($event)"
+          (drop)="onDrop($event)"
         >
-          <!-- prettier-ignore -->
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4m14-7-5-5-5 5m5-5v12"/></svg>
+          <input
+            type="file"
+            accept="image/png, image/jpeg, image/svg+xml, image/webp"
+            class="hidden"
+            (change)="onLogoSelected($event)"
+          />
+          <div
+            class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform"
+          >
+            <!-- prettier-ignore -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5 text-text" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4m14-7-5-5-5 5m5-5v12"/></svg>
+          </div>
+          <p class="text-sm font-medium">Sube una imagen</p>
+          <p class="text-xs text-text/50 mt-1">PNG, JPG, SVG o WebP hasta 2MB</p>
+        </label>
+      } @else {
+        <div
+          class="border border-secondary/20 bg-secondary/5 rounded-xl p-4 flex items-center justify-between gap-4"
+        >
+          <div class="flex items-center gap-3">
+            <div
+              class="w-14 h-14 rounded-lg bg-background p-1.5 border border-secondary/20 shadow-xs flex items-center justify-center overflow-hidden"
+            >
+              <img [src]="design.logo" alt="Logo central" class="w-full h-full object-contain" />
+            </div>
+            <div>
+              <p class="text-sm font-medium">Logo configurado</p>
+              <p class="text-xs text-success flex items-center gap-1 mt-0.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-success"></span>
+                Corrección alta (H) activa
+              </p>
+            </div>
+          </div>
+          <button
+            type="button"
+            (click)="removeLogo($event)"
+            class="px-3 py-1.5 rounded-lg text-xs font-medium bg-danger/10 text-danger hover:bg-danger/20 transition-colors"
+          >
+            Quitar logo
+          </button>
         </div>
-        <p class="text-sm font-medium">Sube una imagen</p>
-        <p class="text-xs text-text/50 mt-1">PNG, JPG hasta 2MB</p>
-      </div>
+      }
     </div>
 
     <!-- Sliders -->
     <div>
-      <div class="flex justify-between mb-1">
+      <div class="flex justify-between mb-1.5">
         <label class="text-sm font-medium">Margen (Padding)</label>
-        <span class="text-xs text-text/50 font-mono">2 blocks</span>
+        <span class="text-xs text-text/60 font-mono">{{ design.margin }} bloques</span>
       </div>
       <input
         type="range"
         class="w-full h-2 bg-secondary/20 rounded-lg appearance-none cursor-pointer accent-primary"
         min="0"
         max="4"
-        value="2"
+        step="1"
+        [value]="design.margin"
+        (input)="setMargin($event)"
       />
     </div>
   </div>
