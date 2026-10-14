@@ -1,5 +1,4 @@
 import { Injectable, signal, computed, effect } from '@angular/core';
-import * as QRCode from 'qrcode';
 
 export type QrType = 'url' | 'text' | 'wifi' | 'contact' | 'email';
 export type PixelShape = 'squares' | 'rounded' | 'dots';
@@ -67,7 +66,7 @@ const STORAGE_KEY_DESIGN = 'qrakin_design_v1';
 export class QrService {
   readonly config = signal<QrConfig>({
     type: 'url',
-    urlData: 'https://github.com',
+    urlData: '',
     textData: '',
     wifiData: { ssid: '', password: '', encryption: 'WPA', hidden: false },
     contactData: { firstName: '', lastName: '', phone: '', email: '', company: '' },
@@ -109,7 +108,7 @@ export class QrService {
     const c = this.config();
     switch (c.type) {
       case 'url':
-        return c.urlData.trim() || 'https://qrakin.dev';
+        return c.urlData.trim();
       case 'text':
         return c.textData || ' ';
       case 'wifi': {
@@ -128,7 +127,7 @@ export class QrService {
         return `MATMSG:TO:${address};SUB:${subject};BODY:${body};;`;
       }
       default:
-        return 'https://qrakin.dev';
+        return '';
     }
   });
 
@@ -214,7 +213,7 @@ export class QrService {
 
   toggleFavoriteHistory(id: string) {
     this.history.update((list) =>
-      list.map((item) => (item.id === id ? { ...item, favorite: !item.favorite } : item))
+      list.map((item) => (item.id === id ? { ...item, favorite: !item.favorite } : item)),
     );
   }
 
@@ -248,55 +247,7 @@ export class QrService {
     } catch (e) {
       console.warn('Error leyendo historial de localStorage', e);
     }
-    // Items de bienvenida iniciales si está vacío
-    return [
-      {
-        id: 'default-1',
-        title: 'Mi Portfolio',
-        type: 'url',
-        content: 'https://aarongarcia.dev',
-        config: {
-          type: 'url',
-          urlData: 'https://aarongarcia.dev',
-          textData: '',
-          wifiData: { ssid: '', password: '', encryption: 'WPA', hidden: false },
-          contactData: { firstName: '', lastName: '', phone: '', email: '', company: '' },
-          emailData: { address: '', subject: '', body: '' },
-        },
-        design: {
-          colorDark: '#05241e',
-          colorLight: '#ffffff',
-          pixelShape: 'rounded',
-          margin: 2,
-          logo: null,
-        },
-        createdAt: Date.now() - 3600000,
-        favorite: true,
-      },
-      {
-        id: 'default-2',
-        title: 'Wi-Fi Casa',
-        type: 'wifi',
-        content: 'WIFI:T:WPA;S:Wi-Fi Casa;P:SuperSecret123;H:false;;',
-        config: {
-          type: 'wifi',
-          urlData: '',
-          textData: '',
-          wifiData: { ssid: 'Wi-Fi Casa', password: 'SuperSecret123', encryption: 'WPA', hidden: false },
-          contactData: { firstName: '', lastName: '', phone: '', email: '', company: '' },
-          emailData: { address: '', subject: '', body: '' },
-        },
-        design: {
-          colorDark: '#113783',
-          colorLight: '#ffffff',
-          pixelShape: 'dots',
-          margin: 2,
-          logo: null,
-        },
-        createdAt: Date.now() - 7200000,
-        favorite: false,
-      },
-    ];
+    return [];
   }
 
   private loadSavedDesign(): QrDesign {
