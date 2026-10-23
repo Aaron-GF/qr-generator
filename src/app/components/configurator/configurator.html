@@ -1,5 +1,5 @@
 <!-- Selector de Datos -->
-<div class="bg-background rounded-2xl border border-secondary/20 shadow-sm p-6">
+<div class="bg-background rounded-2xl border border-secondary/30 shadow-sm p-6">
   <h2 class="font-semibold text-lg mb-4">¿Qué quieres generar?</h2>
   <div class="grid grid-cols-3 sm:grid-cols-5 gap-2 mb-6">
     <button
@@ -125,6 +125,7 @@
           <select
             [ngModel]="config.wifiData.encryption"
             (ngModelChange)="updateWifi('encryption', $event)"
+            class="pr-3"
           >
             <option value="WPA">WPA/WPA2/WPA3</option>
             <option value="WEP">WEP</option>
