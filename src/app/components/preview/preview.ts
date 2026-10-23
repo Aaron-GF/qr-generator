@@ -19,7 +19,6 @@ export class Preview implements AfterViewInit {
   @ViewChild('qrCanvas') canvasRef!: ElementRef<HTMLCanvasElement>;
 
   qrService = inject(QrService);
-  isRendering = false;
   isCopied = false;
 
   constructor() {
@@ -41,7 +40,6 @@ export class Preview implements AfterViewInit {
 
   async renderQr() {
     if (!this.canvasRef?.nativeElement) return;
-    this.isRendering = true;
     try {
       await renderQrToCanvas(
         this.canvasRef.nativeElement,
@@ -52,8 +50,6 @@ export class Preview implements AfterViewInit {
       );
     } catch (e) {
       console.error('Error al renderizar código QR:', e);
-    } finally {
-      this.isRendering = false;
     }
   }
 

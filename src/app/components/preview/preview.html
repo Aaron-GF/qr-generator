@@ -3,17 +3,9 @@
   <div
     class="bg-background rounded-2xl border border-secondary/20 shadow-xl shadow-primary/5 p-6 flex flex-col items-center relative overflow-hidden"
   >
-    <!-- Brillo decorativo superior -->
-    <div class="absolute -top-4 -right-4 w-24 h-24 bg-accent/10 rounded-full blur-2xl"></div>
 
     <div class="flex items-center justify-between w-full mb-4">
       <h3 class="font-bold text-lg">Vista Previa</h3>
-      <span
-        class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20"
-      >
-        <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-        En directo
-      </span>
     </div>
 
     <!-- Contenedor del QR Canvas -->
@@ -25,12 +17,6 @@
         class="max-w-full max-h-full object-contain rounded-lg transition-transform duration-200 group-hover:scale-[1.02]"
         style="width: 224px; height: 224px;"
       ></canvas>
-
-      @if (isRendering) {
-        <div class="absolute inset-0 bg-background/60 backdrop-blur-xs flex items-center justify-center rounded-2xl">
-          <div class="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
-        </div>
-      }
     </div>
 
     <!-- Resumen del contenido actual -->
