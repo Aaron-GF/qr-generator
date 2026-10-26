@@ -42,6 +42,7 @@
           >
             <input
               type="color"
+              aria-label="Selector visual del color del código QR"
               class="opacity-0 absolute inset-0 cursor-pointer w-full h-full"
               [value]="design.colorDark"
               (input)="setColorDark($any($event.target).value)"
@@ -49,6 +50,7 @@
           </label>
           <input
             type="text"
+            aria-label="Código hexadecimal del color del código QR"
             [value]="design.colorDark"
             (input)="setColorDark($any($event.target).value)"
             class="flex-1 px-3 py-2 rounded-lg bg-secondary/5 border border-secondary/20 text-sm font-mono focus:border-primary outline-none"
@@ -65,6 +67,7 @@
           >
             <input
               type="color"
+              aria-label="Selector visual de color de fondo"
               class="opacity-0 absolute inset-0 cursor-pointer w-full h-full"
               [value]="design.colorLight"
               (input)="setColorLight($any($event.target).value)"
@@ -72,6 +75,7 @@
           </label>
           <input
             type="text"
+            aria-label="Código hexadecimal del color de fondo"
             [value]="design.colorLight"
             (input)="setColorLight($any($event.target).value)"
             class="flex-1 px-3 py-2 rounded-lg bg-secondary/5 border border-secondary/20 text-sm font-mono focus:border-primary outline-none"
@@ -189,6 +193,7 @@
         min="0"
         max="4"
         step="0.05"
+        aria-label="Ajustar el tamaño del margen del código QR"
         [value]="design.margin"
         (input)="setMargin($event)"
       />
