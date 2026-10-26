@@ -79,7 +79,7 @@ export async function renderQrToCanvas(
   displaySize: number = 256,
   renderScale: number = 2 // Factor de escala para nitidez Retina / exportación
 ): Promise<void> {
-  const safeText = text.trim();
+  const safeText = text.trim() || 'https://qrakin.vercel.app';
   const qr = QRCode.create(safeText, {
     errorCorrectionLevel: design.logo ? 'H' : 'M',
   });
@@ -224,7 +224,7 @@ export async function generateQrSvg(
   design: QrDesign,
   size: number = 512
 ): Promise<string> {
-  const safeText = text.trim() || 'https://qrakin.dev';
+  const safeText = text.trim() || 'https://qrakin.vercel.app';
   const qr = QRCode.create(safeText, {
     errorCorrectionLevel: design.logo ? 'H' : 'M',
   });
