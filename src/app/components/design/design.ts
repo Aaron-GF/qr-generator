@@ -28,7 +28,7 @@ export class Design {
   }
 
   setMargin(event: Event) {
-    const value = parseInt((event.target as HTMLInputElement).value, 10);
+    const value = parseFloat((event.target as HTMLInputElement).value);
     this.qrService.updateDesign({ margin: isNaN(value) ? 2 : value });
   }
 

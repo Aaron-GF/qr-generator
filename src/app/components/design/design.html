@@ -3,7 +3,6 @@
   <div class="flex items-center justify-between mb-6">
     <h2 class="font-semibold text-lg flex items-center gap-2">Diseño del QR</h2>
     <div class="flex items-center gap-1.5 text-xs text-text/60">
-      <span>Predefinido</span>
       <button
         type="button"
         (click)="applyPreset('#05241e', '#ffffff')"
@@ -181,15 +180,15 @@
     <!-- Sliders -->
     <div>
       <div class="flex justify-between mb-1.5">
-        <label class="text-sm font-medium">Margen (Padding)</label>
-        <span class="text-xs text-text/60 font-mono">{{ design.margin }} bloques</span>
+        <label class="text-sm font-medium">Margen</label>
+        <span class="text-xs text-text/60 font-mono">{{ design.margin }} bloque(s)</span>
       </div>
       <input
         type="range"
         class="w-full h-2 bg-secondary/20 rounded-lg appearance-none cursor-pointer accent-primary"
         min="0"
         max="4"
-        step="1"
+        step="0.05"
         [value]="design.margin"
         (input)="setMargin($event)"
       />
